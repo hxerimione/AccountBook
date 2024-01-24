@@ -37,9 +37,8 @@
     const storage = sessionStorage.getItem("store");
     if (!storage) updateStorage();
   
-    const { dateList, detailList, todayId, currentFunds, isFirstEdit } =
-      JSON.parse(storage);
-  
+    const { dateList, detailList, todayId, currentFunds, isFirstEdit } = JSON.parse(storage);
+    
     store.currentFunds = currentFunds;
     store.isFirstEdit = isFirstEdit;
     store.dateList = dateList;
@@ -54,9 +53,16 @@
        * - store의 detailList 새로 갱신
        * - store.currentFunds 새로 갱신
        */
-      store.detailList = null;
-      store.currentFunds = null;
-  
+      console.log("newHistory",newHistory);
+      if (store.detailList[store.todayId]){
+        store.detailList[store.todayId].push(newHistory);
+        
+      } else{
+        store.detailList[store.todayId] = [newHistory];
+      }
+      
+      store.currentFunds -= newHistory.amount;
+      console.log("store",store);
       updateStorage();
       return true;
     } catch (error) {
@@ -72,7 +78,15 @@
        * - store의 detailList 새로 갱신
        * - store.currentFunds 새로 갱신
        */
-      store.detailList[dateId] = null;
+      console.log("dateId",dateId);
+      console.log("itemId",itemId);
+      store.detailList[dateId] = store.detailList[dateId].filter(({ id,amount })=>{
+        if (id === Number(itemId)){
+          store.currentFunds += amount;
+        }
+        return id !== Number(itemId);
+      });
+      
   
       updateStorage();
       return true;
