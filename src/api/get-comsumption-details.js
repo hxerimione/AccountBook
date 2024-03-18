@@ -10,6 +10,7 @@ import axios from 'axios';
  * createAt : string
  * }
  */
+
 export const getConsumptionDetails = async () => {
     const { data } = await axios.get(
         'http://localhost:3000/consumption-details'

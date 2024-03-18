@@ -1,5 +1,5 @@
 .c-container-price::after {
-    content: '원';
+    /* content: '원'; */
     margin-left: 10px;
     display: block;
 }

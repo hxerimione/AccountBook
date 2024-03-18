@@ -1,10 +1,12 @@
-/* 가계부 목록 start
-.consumption-details {
+/* 가계부 목록 start  */
+.consumption-details-list {
     margin: 12px 20px;
-    &-list {
+    padding: 0;
+    list-style: none;
+    /* &-list {
         list-style: none;
         padding: 0;
-    }
+    } */
 }
 
 .consumption-details-per-day {
@@ -76,4 +78,4 @@
     padding-top: 8px;
     font-size: 13px;
     text-align: right;
-} */
+}
