@@ -14,84 +14,85 @@
      }[]
   }
  */
-  export const store = {
+export const store = {
     currentFunds: 0,
-  
+
     isFirstEdit: true,
     todayId: 1,
-  
+
     dateList: [
-      {
-        id: 1,
-        date: new Date().toLocaleDateString(),
-      },
+        {
+            id: 1,
+            date: new Date().toLocaleDateString(),
+        },
     ],
     detailList: {},
-  };
-  
-  export function updateStorage() {
-    sessionStorage.setItem("store", JSON.stringify(store));
-  }
-  
-  export function initStore() {
-    const storage = sessionStorage.getItem("store");
+};
+
+export function updateStorage() {
+    sessionStorage.setItem('store', JSON.stringify(store));
+}
+
+export function initStore() {
+    const storage = sessionStorage.getItem('store');
     if (!storage) updateStorage();
-  
-    const { dateList, detailList, todayId, currentFunds, isFirstEdit } = JSON.parse(storage);
-    
+
+    const { dateList, detailList, todayId, currentFunds, isFirstEdit } =
+        JSON.parse(storage);
+
     store.currentFunds = currentFunds;
     store.isFirstEdit = isFirstEdit;
     store.dateList = dateList;
     store.detailList = detailList;
     store.todayId = todayId;
-  }
-  
-  export function addNewHistory(newHistory) {
+}
+
+export function addNewHistory(newHistory) {
     try {
-      // TODO:
-      /**
-       * - store의 detailList 새로 갱신
-       * - store.currentFunds 새로 갱신
-       */
-      console.log("newHistory",newHistory);
-      if (store.detailList[store.todayId]){
-        store.detailList[store.todayId].push(newHistory);
-        
-      } else{
-        store.detailList[store.todayId] = [newHistory];
-      }
-      
-      store.currentFunds -= newHistory.amount;
-      console.log("store",store);
-      updateStorage();
-      return true;
-    } catch (error) {
-      alert(error);
-      return false;
-    }
-  }
-  
-  export function removeHistory(dateId, itemId) {
-    try {
-      // TODO:
-      /**
-       * - store의 detailList 새로 갱신
-       * - store.currentFunds 새로 갱신
-       */
-      console.log("dateId",dateId);
-      console.log("itemId",itemId);
-      store.detailList[dateId] = store.detailList[dateId].filter(({ id,amount })=>{
-        if (id === Number(itemId)){
-          store.currentFunds += amount;
+        // TODO:
+        /**
+         * - store의 detailList 새로 갱신
+         * - store.currentFunds 새로 갱신
+         */
+        console.log('newHistory', newHistory);
+        if (store.detailList[store.todayId]) {
+            store.detailList[store.todayId].push(newHistory);
+        } else {
+            store.detailList[store.todayId] = [newHistory];
         }
-        return id !== Number(itemId);
-      });
-      
-  
-      updateStorage();
-      return true;
+
+        store.currentFunds -= newHistory.amount;
+        console.log('store', store);
+        updateStorage();
+        return true;
     } catch (error) {
-      alert(error);
-      return false;
+        alert(error);
+        return false;
     }
-  }
+}
+
+export function removeHistory(dateId, itemId) {
+    try {
+        // TODO:
+        /**
+         * - store의 detailList 새로 갱신
+         * - store.currentFunds 새로 갱신
+         */
+        console.log('dateId', dateId);
+        console.log('itemId', itemId);
+        store.detailList[dateId] = store.detailList[dateId].filter(
+            ({ id, amount }) => {
+                if (id === Number(itemId)) {
+                    store.currentFunds += amount;
+                }
+                return id !== Number(itemId);
+            }
+        );
+
+        updateStorage();
+        return true;
+    } catch (error) {
+        alert(error);
+        return false;
+    }
+}
