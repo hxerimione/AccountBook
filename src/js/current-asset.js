@@ -45,13 +45,15 @@ const handleGetCurrentAsset = async () => {
         if (price > 0) {
             $currentAssetValue.textContent = price.toLocaleString();
             toHidden($currentAssetInput);
+            toHidden($currentAssetButton);
+            toShow($addItemButton);
         } else {
             toShow($currentAssetInput);
             toShow($currentAssetButton);
             toHidden($addItemButton);
         }
     } catch (err) {
-        console.error('현재자산을 조회한는데 실패했습니다.');
+        console.error('현재자산을 조회하는데 실패했습니다.');
     }
 
     toHidden($currentAssetLoader);
